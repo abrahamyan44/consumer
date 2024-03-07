@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polixis.task.entity.Message;
 import com.polixis.task.repository.ConsumerRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +17,7 @@ public class ConsumerService {
     public ConsumerService(ConsumerRepository consumerRepository) {
         this.consumerRepository = consumerRepository;
     }
-
+    @KafkaListener(topics = "test_topic", groupId = "test-group")
     @Transactional
     public void consumeMessage (String receivedMessage){
         try {
